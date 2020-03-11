@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>VEC成绩查询</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../static/plugins/fontawesome-free/css/all.min.css"
+          th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.css"
+          th:href="@{/plugins/datatables-bs4/css/dataTables.bootstrap4.css}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../static/css/adminlte.min.css" th:href="@{/css/adminlte.min.css}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <div th:replace="component/nav :: nav"></div>
+    <div th:replace="component/sidebar :: sidebar(listname='admin')"></div>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2 mt-2">
+                    <div class="col-sm-7">
+                        <h1>角色信息</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <a class="btn btn-sm btn-success"
+                   th:href="@{/admin/add}">添加角色</a>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-hover text-nowrap" id="mytable" style="background: white">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>用户名</th>
+                                <th>密码</th>
+                                <th>权限</th>
+                                <th>备注</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr th:each="admin,list:${admins}">
+                                <td>[[${list.count}]]</td>
+                                <td>[[${admin.name}]]</td>
+                                <td>[[${admin.password}]]</td>
+                                <td>[[${admin.jurisdiction}]]</td>
+                                <td>[[${admin.remarks}]]</td>
+                                <td style="width: 130px;">
+                                    <button class="btn btn-sm btn-primary"
+                                            th:onclick="edit_model_show([[${list.count}]])">编辑
+                                    </button>
+                                    <button class="btn btn-sm btn-danger del_btn"
+                                            th:attr="del_url=@{/admin(name=${admin.name})},name=${admin.name}">
+                                        删除
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="main-footer">
+        <div class="float-right d-none d-sm-block">
+            <b>Version</b> 3.0.2
+        </div>
+        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
+        reserved.
+    </footer>
+
+    <!-- 编辑 -->
+    <div class="modal fade" id="edit" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">编辑</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-8 m-auto">
+                        <form th:action="@{/admin}" method="post" id="edit_form">
+                            <input type="hidden" name="_method" value="PUT"/>
+                            <input type="hidden" id="model_name" name="name">
+                            <div class="form-group row">
+                                <label class="col-2 col-form-label text-right">用户名:</label>
+                                <p class="col-10 col-form-label" id="model_name2">FoxGod</p>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-2 col-form-label text-right">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</label>
+                                <input type="text" class="form-control col-10" id="model_password" name="password">
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-2 col-form-label text-right">权&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;限:</label>
+                                <select class="form-control col-10" name="jurisdiction" id="model_jurisdiction">
+                                    <option th:each="adminJurisdiction:${adminJurisdictions}">
+                                        [[${adminJurisdiction.name}]]
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-2 col-form-label text-right">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注:</label>
+                                <textarea class="form-control col-10" rows="3" name="remarks"
+                                          id="model_remarks"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" th:onclick="edit_model_hide()">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 删除 -->
+    <form id="del_form" method="post">
+        <input type="hidden" name="_method" value="delete">
+    </form>
+
+
+</div>
+
+
+<!-- jQuery -->
+<script src="../../static/plugins/jquery/jquery.min.js" th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script src="../../static/plugins/bootstrap/js/bootstrap.bundle.min.js"
+        th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- DataTables -->
+<script src="../../plugins/datatables/jquery.dataTables.js"
+        th:src="@{/plugins/datatables/jquery.dataTables.js}"></script>
+<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.js"
+        th:src="@{/plugins/datatables-bs4/js/dataTables.bootstrap4.js}"></script>
+<!-- AdminLTE App -->
+<script src="../../static/js/adminlte.min.js" th:src="@{/js/adminlte.min.js}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../static/js/demo.js" th:src="@{/js/demo.js}"></script>
+<script>
+
+    function edit_model_show(number) {
+        $("#model_name").val($('tr').eq(number).find('td').eq(1).text());
+        $("#model_name2").text($('tr').eq(number).find('td').eq(1).text());
+        $("#model_password").val($('tr').eq(number).find('td').eq(2).text());
+        $("#model_jurisdiction").val($('tr').eq(number).find('td').eq(3).text());
+        $("#model_remarks").val($('tr').eq(number).find('td').eq(4).text());
+        $('#edit').modal('show')
+    }
+
+    function edit_model_hide() {
+        $("#edit_form").submit();
+        $('#edit').modal('hide');
+    }
+
+    $(".del_btn").click(function () {
+        if ($(this).attr("name") == "admin") {
+            alert("超级管理员不能删除")
+            return;
+        }
+        if (window.confirm("确定删除" + $(this).attr("name") + "用户吗？")) {
+            $("#del_form").attr("action", $(this).attr("del_url")).submit();
+        }
+    })
+
+    $(function () {
+        $('#mytable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "info": false,
+
+
+            "language": {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "表中数据为空",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                }
+            }
+        });
+    })
+
+</script>
+</body>
+</html>

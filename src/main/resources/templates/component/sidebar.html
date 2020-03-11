@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4" th:fragment="sidebar(listname)">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link" style="text-align: center">
+        <span class="brand-text font-weight-light">VEC成绩查询</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="img/FoxGod.jpg" th:src="@{/img/FoxGod.jpg}" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+                <a href="#" class="d-block">Hello,FoxGod</a>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item ">
+                    <a href="#" class="nav-link" th:class="${listname=='dashboard'?'nav-link active':'nav-link'}" th:href="@{/main}">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Dashboard
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-header">数据查看</li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" th:class="${listname=='admin'?'nav-link active':'nav-link'}" th:href="@{/admin}">
+                        <i class="nav-icon far fa-address-card"></i>
+                        <p>
+                            角色管理
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" th:class="${listname=='user'?'nav-link active':'nav-link'}" th:href="@{/user}">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>
+                            用户信息
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>
+
+</body>
+</html>
