@@ -10,6 +10,7 @@ public class VecwebApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(VecwebApplication.class, args);
+
     }
 
 }
