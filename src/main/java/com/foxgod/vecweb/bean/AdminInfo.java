@@ -1,7 +1,6 @@
 package com.foxgod.vecweb.bean;
 
 public class AdminInfo {
-
     private String name="";
     private String password="";
     private String jurisdiction="";
