@@ -14,7 +14,7 @@ public interface AdminMapper {
     //获取所有角色
     @Select("SELECT admin_info.name as name, admin_info.password ,admin_info.remarks ,admin_jurisdiction.name as jurisdiction  \n" +
             "FROM admin_info,admin_jurisdiction where admin_info.jurisdiction=admin_jurisdiction.num")
-    public List<AdminInfo> selectadmin();
+    public List<AdminInfo> getAllAdmins();
 
     //获取角色权限
     @Select("select  * from admin_jurisdiction  limit 1,99")

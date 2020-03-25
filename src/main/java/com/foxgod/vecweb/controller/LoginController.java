@@ -45,19 +45,4 @@ public class LoginController {
         }
         return "redirect:/main";
     }
-
-//    @PostMapping("/loginasd")
-//    public String loginasd(@RequestParam("username") String username, @RequestParam("password") String password) {
-//        System.out.println(username + "+++++" + password);
-//        Subject subject = SecurityUtils.getSubject();
-//        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-//        try {
-//            subject.login(token);
-//        } catch (AuthenticationException ae) {
-//            ae.printStackTrace();
-//            System.out.println(username + "------登录失败------" + ae.getMessage());
-//
-//        }
-//        return "index";
-//    }
 }

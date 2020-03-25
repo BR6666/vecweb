@@ -6,6 +6,7 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -15,12 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class CustomRealm extends AuthorizingRealm {
 
-@Autowired
+    @Autowired
     LoginMapper loginMapper;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-
         return null;
     }
 
@@ -32,10 +32,10 @@ public class CustomRealm extends AuthorizingRealm {
         String username = token.getPrincipal().toString();
         AdminInfo adminInfo = loginMapper.userlogin(username);
         if (adminInfo == null) {
-            throw  new UnknownAccountException("用户名不存在");
+            throw new UnknownAccountException("用户名不存在");
         }
-        String realmName = getName();
-        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(username, adminInfo.getPassword(), realmName);
+        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(username, adminInfo.getPassword(),
+                ByteSource.Util.bytes(username), getName());
         return simpleAuthenticationInfo;
     }
 }

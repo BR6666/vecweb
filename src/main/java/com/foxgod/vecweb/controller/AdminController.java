@@ -21,7 +21,7 @@ public class AdminController {
     @GetMapping("/admin")
     public String getadmin(Model model) {
         //获取管理员信息
-        List<AdminInfo> admins = adminMapper.selectadmin();
+        List<AdminInfo> admins = adminMapper.getAllAdmins();
         model.addAttribute("admins", admins);
         List<AdminJurisdiction> adminJurisdictions = adminMapper.selectadminjurisdiction();
         model.addAttribute("adminJurisdictions", adminJurisdictions);
