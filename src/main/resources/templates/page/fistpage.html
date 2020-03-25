@@ -22,9 +22,7 @@
     <div th:replace="component/sidebar :: sidebar(listname='dashboard')"></div>
 
 
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2 mt-2">
@@ -33,10 +31,9 @@
                         <i class="nav-icon fa fa-tachometer" aria-hidden="true"></i>
                     </div>
                 </div>
-            </div><!-- /.container-fluid -->
+            </div>
         </section>
 
-        <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -46,7 +43,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">今日访问人数</span>
-                                <span class="info-box-number">1,410</span>
+                                <span class="info-box-number">[[${todayVisitNumber}]]</span>
                             </div>
                         </div>
                     </div>
@@ -56,7 +53,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">新增用户</span>
-                                <span class="info-box-number">410</span>
+                                <span class="info-box-number">[[${newUsernumber}]]</span>
                             </div>
                         </div>
                     </div>
@@ -66,7 +63,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">用户人数</span>
-                                <span class="info-box-number">13,648</span>
+                                <span class="info-box-number">[[${userNumber}]]</span>
                             </div>
                         </div>
                     </div>
@@ -76,7 +73,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">本周访问人数</span>
-                                <span class="info-box-number">93,139</span>
+                                <span class="info-box-number">[[${weekVisitNumber}]]</span>
                             </div>
                         </div>
                     </div>
@@ -84,9 +81,8 @@
 
             </div>
         </section>
-
     </div>
-    <!-- /.content-wrapper -->
+
 
     <footer class="main-footer">
         <div class="float-right d-none d-sm-block">
