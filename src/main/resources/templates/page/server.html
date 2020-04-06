@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="component/header :: common_header('服务监控')">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <div th:replace="component/nav :: nav"></div>
+    <div th:replace="component/sidebar :: sidebar(listname='server')"></div>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+<!--            <div class="container-fluid">-->
+
+<!--            </div>-->
+        </section>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-outline" style="font-size: 15px">
+                            <div class="card-header">
+                                <h3 class="card-title">CPU</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                            class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+
+                            <div class="card-body" style="padding-top: 10px">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>属性</th>
+                                        <th>值</th>
+                                    </tr>
+                                    </thead>
+                                    <tr>
+                                        <td>核心数</td>
+                                        <td>[[${server.cpu.cpuNum}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <td>用户使用率</td>
+                                        <td>[[${server.cpu.used + '%'}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <td>系统使用率</td>
+                                        <td>[[${server.cpu.sys + '%'}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <td>当前空闲率</td>
+                                        <td>[[${server.cpu.free + '%'}]]</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card card-outline" style="font-size: 15px">
+                            <div class="card-header">
+                                <h3 class="card-title" style="font-size: 15px">内存</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                            class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+
+                            <div class="card-body" style="padding-top: 10px">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>属性</th>
+                                        <th>内存</th>
+                                        <th>JVM</th>
+                                    </tr>
+                                    </thead>
+                                    <tr>
+                                        <td>总内存</td>
+                                        <td>[[${server.mem.total + 'G'}]]</td>
+                                        <td>[[${server.jvm.total + 'M'}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <td>已用内存</td>
+                                        <td>[[${server.mem.used + 'G'}]]</td>
+                                        <td>[[${server.jvm.used + 'M'}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <td>剩余内存</td>
+                                        <td>[[${server.mem.free + 'G'}]]</td>
+                                        <td>[[${server.jvm.free + 'M'}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <td>使用率</td>
+                                        <td>[[${server.mem.usage + '%'}]]</td>
+                                        <td>[[${server.jvm.usage + '%'}]]</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-outline" style="font-size: 15px">
+                            <div class="card-header">
+                                <h3 class="card-title" style="font-size: 15px">服务器信息</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                            class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card-body" style="padding-top: 10px">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <td style="width:25%">服务器名称</td>
+                                        <td>[[${server.sys.computerName}]]</td>
+                                        <td>操作系统</td>
+                                        <td>[[${server.sys.osName}]]</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>服务器IP</td>
+                                        <td>[[${server.sys.computerIp}]]</td>
+                                        <td>系统架构</td>
+                                        <td>[[${server.sys.osArch}]]</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-outline" style="font-size: 15px">
+                            <div class="card-header">
+                                <h3 class="card-title" style="font-size: 15px">Java虚拟机信息</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                            class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card-body" style="padding-top: 10px">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <td style="width:25%">Java名称</td>
+                                        <td>[[${server.jvm.name}]]</td>
+                                        <td>Java版本</td>
+                                        <td>[[${server.jvm.version}]]</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>启动时间</td>
+                                        <td>[[${server.jvm.startTime}]]</td>
+                                        <td>运行时长</td>
+                                        <td>[[${server.jvm.runTime}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <td>安装路径</td>
+                                        <td>[[${server.jvm.home}]]</td>
+                                        <td>项目路径</td>
+                                        <td>[[${server.sys.userDir}]]</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-outline" style="font-size: 15px">
+                            <div class="card-header">
+                                <h3 class="card-title" style="font-size: 15px">磁盘状态</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                            class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card-body" style="padding-top: 10px">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <td>盘符路径</td>
+                                        <td>文件系统</td>
+                                        <td>盘符类型</td>
+                                        <td>总大小</td>
+                                        <td>可用大小</td>
+                                        <td>已用大小</td>
+                                        <td>已用百分比</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="sysFile : ${server.sysFiles}">
+                                        <td th:text="${sysFile.dirName}">C:\</td>
+                                        <td th:text="${sysFile.sysTypeName}">NTFS</td>
+                                        <td th:text="${sysFile.typeName}">local</td>
+                                        <td th:text="${sysFile.total}">0GB</td>
+                                        <td th:text="${sysFile.free}">0GB</td>
+                                        <td th:text="${sysFile.used}">0GB</td>
+                                        <td th:class="${sysFile.usage gt 80} ? 'text-danger'">[[${sysFile.usage}]]%</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="main-footer">
+        <div class="float-right d-none d-sm-block">
+            <b>Version</b> 3.0.2
+        </div>
+        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
+        reserved.
+    </footer>
+</div>
+
+<div th:replace="component/script :: js"></div>
+</body>
+</html>

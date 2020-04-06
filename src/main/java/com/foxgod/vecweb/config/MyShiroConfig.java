@@ -1,12 +1,11 @@
 package com.foxgod.vecweb.config;
 
-import com.foxgod.vecweb.realm.CustomRealm;
+import com.foxgod.vecweb.shiro.web.KickoutSessionFilter;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,25 +15,41 @@ import java.util.Map;
  * @Author FoxGod
  * @Date 2020/03/16 14:50
  */
-@Configuration
-public class MyShiroConfig {
-//    //不加这个注解不生效，具体不详
-//    @Bean
-//    @ConditionalOnMissingBean
-//    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
-//        DefaultAdvisorAutoProxyCreator defaultAAP = new DefaultAdvisorAutoProxyCreator();
-//        defaultAAP.setProxyTargetClass(true);
-//        return defaultAAP;
-//    }
 
-    //将自己的验证方式加入容器
+//@Configuration
+public class MyShiroConfig {
+
+
+
+
+    /**
+     * 自定义Realm
+     */
     @Bean
-    public CustomRealm myShiroRealm() {
-        CustomRealm customRealm = new CustomRealm();
+    public UserRealm myShiroRealm() {
+        UserRealm userRealm = new UserRealm();
         //添加加密规则
-        customRealm.setCredentialsMatcher(hashedCredentialsMatcher());
-        return customRealm;
+//        userRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        return userRealm;
     }
+
+    public KickoutSessionFilter kickoutSessionControlFilter() {
+        KickoutSessionFilter kickoutSessionControlFilter = new KickoutSessionFilter();
+        //使用cacheManager获取相应的cache来缓存用户登录的会话；用于保存用户—会话之间的关系的；
+        //这里我们还是用之前shiro使用的redisManager()实现的cacheManager()缓存管理
+        //也可以重新另写一个，重新配置缓存时间之类的自定义缓存属性
+        kickoutSessionControlFilter.setCacheManager(cacheManager());
+        //用于根据会话ID，获取会话进行踢出操作的；
+        kickoutSessionControlFilter.setSessionManager(sessionManager());
+        //是否踢出后来登录的，默认是false；即后者登录的用户踢出前者登录的用户；踢出顺序。
+        kickoutSessionControlFilter.setKickoutAfter(false);
+        //同一个用户最大的会话数，默认1；比如2的意思是同一个用户允许最多同时两个人登录；
+        kickoutSessionControlFilter.setMaxSession(1);
+        //被踢出后重定向到的地址；
+        kickoutSessionControlFilter.setKickoutUrl("/kickout");
+        return kickoutSessionControlFilter;
+    }
+
 
     //权限管理，配置主要是Realm的管理认证
     @Bean
@@ -64,13 +79,6 @@ public class MyShiroConfig {
         return shiroFilterFactoryBean;
     }
 
-//    //加入注解的使用，不加入这个注解不生效
-//    @Bean
-//    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
-//        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
-//        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
-//        return authorizationAttributeSourceAdvisor;
-//    }
 
     @Bean()
     public HashedCredentialsMatcher hashedCredentialsMatcher() {

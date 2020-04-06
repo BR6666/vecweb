@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="component/header :: common_header('VEC成绩查询')">
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <div th:replace="component/nav :: nav"></div>
+    <div th:replace="component/sidebar :: sidebar(listname='druid')"></div>
+
+    <div class="content-wrapper">
+        <div class="iframe">
+            <iframe th:src="@{/system/druid/index.html}" frameborder="0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="float-right d-none d-sm-block">
+            <b>Version</b> 3.0.2
+        </div>
+        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
+        reserved.
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+
+
+<div th:replace="component/script :: js"></div>
+<script>
+    $(function () {
+        var height = $(window).height() - 57 - 57
+
+        $(".iframe").height(height + "px")
+        $(window).resize(function () {
+            $(".iframe").height($(window).height() - 57 - 57 + "px")
+        }).resize();
+    })
+</script>
+</body>
+</html>

@@ -1,7 +1,6 @@
 package com.foxgod.vecweb;
 
-import org.apache.shiro.crypto.hash.SimpleHash;
-import org.apache.shiro.util.ByteSource;
+import com.foxgod.monitor.Server;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -9,14 +8,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 class VecwebApplicationTests {
 
     @Test
-    void contextLoads() {
+    void contextLoads() throws Exception {
 
-        String HashName = "MD5";
-        Object credentils = "123456";
-        Object salt = ByteSource.Util.bytes("test");
-        int hashInt = 1024;
-        Object result = new SimpleHash(HashName, credentils, salt, hashInt);
-        System.out.println(result);
+
+        Server server=new Server();
+        server.info();
+        System.out.println(server.getCpu().toString());
+        System.out.println(server.getMem().getTotal());
+
+//        String HashName = "MD5";
+//        Object credentils = "123456";
+//        Object salt = ByteSource.Util.bytes("test");
+//        int hashInt = 1024;
+//        Object result = new SimpleHash(HashName, credentils, salt, hashInt);
+//        System.out.println(result);
     }
+
 
 }

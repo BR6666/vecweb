@@ -25,14 +25,16 @@ public interface AdminMapper {
     public Integer addadmin(AdminInfo adminInfo);
 
     //查找是否有这个角色
-    @Select("select * from admin_info where name=#{name}")
-    public AdminInfo isadminname(String name);
+    @Select("select count(*) from admin_info where name=#{name}")
+    public Integer isadminname(String name);
 
     //删除角色信息
     @Delete("delete from admin_info where name=#{name}")
     public Integer deladmin(String name);
 
     //修改角色信息
-    @Update("update admin_info set password=#{password},jurisdiction=#{jurisdiction},remarks=#{remarks} where name=#{name}")
+    @Update("update admin_info set jurisdiction=#{jurisdiction},remarks=#{remarks} where name=#{name}")
     public Integer update(AdminInfo adminInfo);
+
+
 }

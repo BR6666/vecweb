@@ -1,4 +1,4 @@
-package com.foxgod.vecweb.realm;
+package com.foxgod.vecweb.shiro.realm;
 
 import com.foxgod.vecweb.bean.AdminInfo;
 import com.foxgod.vecweb.mapper.LoginMapper;
@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Author FoxGod
  * @Date 2020/03/16 14:51
  */
-public class CustomRealm extends AuthorizingRealm {
+public class UserRealm extends AuthorizingRealm {
 
     @Autowired
     LoginMapper loginMapper;
