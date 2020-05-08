@@ -29,27 +29,27 @@ public interface DashboardMapper {
         public String todayVisitNumber(String today) {
             String sql = "SELECT * FROM `user_visit` where visit_time " +
                     "between '" + today + " 00:00:00' and '" + today + " 23:59:59'";
-            System.out.println(sql);
+//            System.out.println(sql);
             return sql;
         }
 
         public String newUser(String today) {
             String sql = "SELECT * FROM `user_info` where create_time " +
                     "between '" + today + " 00:00:00' and '" + today + " 23:59:59'";
-            System.out.println(sql);
+//            System.out.println(sql);
             return sql;
         }
 
         public String usernumber() {
             String sql = "SELECT * FROM `user_info`";
-            System.out.println(sql);
+//            System.out.println(sql);
             return sql;
         }
 
         public String weekVisitNumber() {
             String sql = "SELECT * FROM user_visit WHERE " +
                     "YEARWEEK(DATE_FORMAT(visit_time,'%Y-%m-%d'),1) = YEARWEEK(NOW(),1);";
-            System.out.println(sql);
+//            System.out.println(sql);
             return sql;
         }
 

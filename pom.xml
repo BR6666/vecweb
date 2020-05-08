@@ -21,6 +21,7 @@
         <alibaba.druid.version>1.1.20</alibaba.druid.version>
         <mybatis.version>2.1.1</mybatis.version>
         <shiro.version>1.4.0</shiro.version>
+        <commons.io.version>2.5</commons.io.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -40,6 +41,13 @@
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring</artifactId>
+            <version>${shiro.version}</version>
+        </dependency>
+
+        <!-- Shiro使用EhCache缓存框架 -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-ehcache</artifactId>
             <version>${shiro.version}</version>
         </dependency>
 
@@ -78,6 +86,13 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.9</version>
+        </dependency>
+
+        <!--io常用工具类 -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.version}</version>
         </dependency>
 
 
